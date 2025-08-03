@@ -1,0 +1,37 @@
+{
+  "name": "@ca/application",
+  "version": "1.0.0",
+  "description": "",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "type": "commonjs",
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc -w",
+    "test": "vitest",
+    "lint": "eslint .",
+    "lint:pre-commit": "eslint",
+    "format": "prettier --write .",
+    "format:pre-commit": "prettier --write",
+    "clean": "rimraf dist node_modules"
+  },
+  "author": "Roy Chen",
+  "license": "ISC",
+  "dependencies": {
+    "@ca/core": "^1.0.0",
+    "@nestjs/jwt": "^11.0.0",
+    "bcrypt": "^6.0.0"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.32.0",
+    "@types/bcrypt": "^6.0.0",
+    "@types/node": "^22.15.21",
+    "eslint": "^9.32.0",
+    "eslint-config-prettier": "^10.1.8",
+    "prettier": "3.6.2",
+    "rimraf": "^6.0.1",
+    "typescript": "^5.8.3",
+    "typescript-eslint": "^8.38.0",
+    "vitest": "^3.2.4"
+  }
+}

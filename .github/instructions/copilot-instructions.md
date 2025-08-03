@@ -9,6 +9,7 @@ This project is a [The Clean Architecture](https://blog.cleancoder.com/uncle-bob
 ## Folder Structure
 
 - `/core`: Contains core business logic, entities, and errors.
+- `/application`: Contains use cases and application services.
 
 ## Coding Standards
 
@@ -23,6 +24,7 @@ This project is a [The Clean Architecture](https://blog.cleancoder.com/uncle-bob
   import { ... } from 'third-party-library';
   // need empty line here
   import { ... } from '@ca/core';
+  import { ... } from '@ca/application';
   // need empty line here
   import { ... } from '../../relative-path';
   import { ... } from '../relative-path';
