@@ -6,11 +6,12 @@
     "core",
     "application",
     "database",
-    "api-server"
+    "api-server",
+    "ui/*"
   ],
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "npm run build -w @ca/core && npm run build -w @ca/application && npm run build -w @ca/database && npm run build -w @ca/api-server",
+    "build": "npm run build -w @ca/core && npm run build -w @ca/application && npm run build -w @ca/database && npm run build -w @ca/api-server && npm run build -w @ca/web-app",
     "dev": "npm run dev --workspaces",
     "lint": "npm run lint --workspaces",
     "format": "npm run format --workspaces",
@@ -39,6 +40,10 @@
     "api-server/{src,apps,libs,test}/**/*.{ts}": [
       "npm run lint:pre-commit -w @ca/api-server",
       "npm run format:pre-commit -w @ca/api-server"
+    ],
+    "ui/web-app/**/*.{ts,tsx,js,jsx,cjs,mjs}": [
+      "npm run lint:pre-commit -w @ca/web-app",
+      "npm run format:pre-commit -w @ca/web-app"
     ]
   }
 }

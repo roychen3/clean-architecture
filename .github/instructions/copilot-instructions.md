@@ -12,6 +12,7 @@ This project is a [The Clean Architecture](https://blog.cleancoder.com/uncle-bob
 - `/application`: Contains use cases and application services.
 - `/database`: Contains database access code.
 - `/api-server`: Contains the API server implementation.
+- `/ui/web-app`: Contains the web application implementation.
 
 ## Coding Standards
 
