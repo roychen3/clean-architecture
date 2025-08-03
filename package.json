@@ -2,9 +2,28 @@
   "name": "clean-architecture",
   "version": "1.0.0",
   "description": "",
+  "workspaces": [
+    "core"
+  ],
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "npm run build -w @ca/core",
+    "dev": "npm run dev --workspaces",
+    "lint": "npm run lint --workspaces",
+    "format": "npm run format --workspaces",
+    "clean": "npm run clean --workspaces && rimraf node_modules",
+    "prepare": "husky"
   },
   "author": "Roy Chen",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "husky": "^9.1.7",
+    "lint-staged": "^16.1.2"
+  },
+  "lint-staged": {
+    "core/**/*.{ts,tsx,js,jsx,cjs,mjs}": [
+      "npm run lint:pre-commit -w @ca/core",
+      "npm run format:pre-commit -w @ca/core"
+    ]
+  }
 }
