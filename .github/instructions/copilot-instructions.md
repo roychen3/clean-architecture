@@ -10,6 +10,7 @@ This project is a [The Clean Architecture](https://blog.cleancoder.com/uncle-bob
 
 - `/core`: Contains core business logic, entities, and errors.
 - `/application`: Contains use cases and application services.
+- `/database`: Contains database access code.
 
 ## Coding Standards
 
@@ -25,6 +26,7 @@ This project is a [The Clean Architecture](https://blog.cleancoder.com/uncle-bob
   // need empty line here
   import { ... } from '@ca/core';
   import { ... } from '@ca/application';
+  import { ... } from '@ca/database';
   // need empty line here
   import { ... } from '../../relative-path';
   import { ... } from '../relative-path';

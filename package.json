@@ -4,11 +4,12 @@
   "description": "",
   "workspaces": [
     "core",
-    "application"
+    "application",
+    "database"
   ],
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "npm run build -w @ca/core && npm run build -w @ca/application",
+    "build": "npm run build -w @ca/core && npm run build -w @ca/application && npm run build -w @ca/database",
     "dev": "npm run dev --workspaces",
     "lint": "npm run lint --workspaces",
     "format": "npm run format --workspaces",
@@ -29,6 +30,10 @@
     "application/**/*.{ts,tsx,js,jsx,cjs,mjs}": [
       "npm run lint:pre-commit -w @ca/application",
       "npm run format:pre-commit -w @ca/application"
+    ],
+    "database/**/*.{ts,tsx,js,jsx,cjs,mjs}": [
+      "npm run lint:pre-commit -w @ca/database",
+      "npm run format:pre-commit -w @ca/database"
     ]
   }
 }

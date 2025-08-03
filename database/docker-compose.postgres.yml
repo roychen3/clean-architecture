@@ -1,0 +1,45 @@
+version: '3.7'
+
+services:
+  postgres:
+    image: postgres:15
+    restart: always
+    environment:
+      - POSTGRES_DB=ca_dev_db
+      - POSTGRES_USER=developer
+      - POSTGRES_PASSWORD=dev_password
+    ports:
+      - '5432:5432'
+    networks:
+      - prisma-network
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U developer -d ca_dev_db']
+      interval: 5s
+      timeout: 2s
+      retries: 20
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    command: postgres -c listen_addresses='*'
+    logging:
+      options:
+        max-size: '10m'
+        max-file: '3'
+
+  pgweb:
+    image: sosedoff/pgweb
+    restart: always
+    depends_on:
+      - postgres
+    environment:
+      - PGWEB_DATABASE_URL=postgres://developer:dev_password@postgres:5432/ca_dev_db?sslmode=disable
+    ports:
+      - '8081:8081'
+    networks:
+      - prisma-network
+    command: --bind=0.0.0.0 --listen=8081
+
+networks:
+  prisma-network:
+
+volumes:
+  postgres_data:

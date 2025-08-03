@@ -1,0 +1,42 @@
+{
+  "name": "@ca/database",
+  "version": "1.0.0",
+  "description": "",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "type": "commonjs",
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc -w",
+    "db:seed": "tsx src/seed-system-default-data.ts",
+    "db:migrate": "prisma migrate dev",
+    "db:generate": "prisma generate",
+    "db:reset": "prisma migrate reset",
+    "db:studio": "prisma studio",
+    "db:init": "prisma migrate dev --name init",
+    "lint": "eslint .",
+    "lint:pre-commit": "eslint",
+    "format": "prettier --write .",
+    "format:pre-commit": "prettier --write",
+    "clean": "rimraf dist node_modules"
+  },
+  "author": "Roy Chen",
+  "license": "ISC",
+  "dependencies": {
+    "@ca/application": "^1.0.0",
+    "@ca/core": "^1.0.0",
+    "@prisma/client": "^6.8.2"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.32.0",
+    "@types/node": "^22.15.21",
+    "eslint": "^9.32.0",
+    "eslint-config-prettier": "^10.1.8",
+    "prettier": "3.6.2",
+    "prisma": "^5.9.0",
+    "rimraf": "^6.0.1",
+    "tsx": "^4.19.4",
+    "typescript": "^5.8.3",
+    "typescript-eslint": "^8.38.0"
+  }
+}

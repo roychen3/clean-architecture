@@ -1,0 +1,101 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "./generated/client"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String        @id @default(uuid())
+  email     String        @unique
+  password  String
+  name      String
+  createdAt DateTime      @default(now()) @map("created_at")
+  updatedAt DateTime      @updatedAt @map("updated_at")
+  roles     UserToRole[]
+  articles  Article[]
+  sessions  UserSession[]
+
+  @@map("users")
+}
+
+model UserSession {
+  id                 String   @id @default(uuid())
+  userId             String   @map("user_id")
+  user               User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  refreshToken       String   @map("refresh_token")
+  accessTokenVersion Int      @default(1) @map("access_token_version")
+  createdAt          DateTime @default(now()) @map("created_at")
+  updatedAt          DateTime @updatedAt @map("updated_at")
+
+  @@index([userId, refreshToken])
+  @@map("user_sessions")
+}
+
+model Role {
+  id           String           @id @default(uuid())
+  name         String           @unique
+  priority     Int              @default(0)
+  isSuperAdmin Boolean          @default(false) @map("is_super_admin")
+  createdAt    DateTime         @default(now()) @map("created_at")
+  updatedAt    DateTime         @updatedAt @map("updated_at")
+  users        UserToRole[]
+  permissions  RolePermission[]
+
+  @@map("roles")
+}
+
+// Many-to-many relationship between User and Role
+model UserToRole {
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId String @map("user_id")
+  role   Role   @relation(fields: [roleId], references: [id], onDelete: Cascade)
+  roleId String @map("role_id")
+
+  @@id([userId, roleId])
+  @@map("user_to_role")
+}
+
+model PermissionResource {
+  id          String           @id @default(uuid())
+  name        String           @unique
+  permissions RolePermission[]
+
+  @@map("permission_resources")
+}
+
+model PermissionAction {
+  id          String           @id @default(uuid())
+  name        String           @unique
+  permissions RolePermission[]
+
+  @@map("permission_actions")
+}
+
+// Connect roles with resources and actions
+model RolePermission {
+  role       Role               @relation(fields: [roleId], references: [id], onDelete: Cascade)
+  roleId     String             @map("role_id")
+  resource   PermissionResource @relation(fields: [resourceId], references: [id], onDelete: Cascade)
+  resourceId String             @map("resource_id")
+  action     PermissionAction   @relation(fields: [actionId], references: [id], onDelete: Cascade)
+  actionId   String             @map("action_id")
+
+  @@id([roleId, resourceId, actionId])
+  @@map("role_permissions")
+}
+
+model Article {
+  id        String   @id @default(uuid())
+  title     String
+  body      String
+  authorId  String   @map("author_id")
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+  author    User     @relation(fields: [authorId], references: [id], onDelete: Cascade)
+
+  @@map("articles")
+}
